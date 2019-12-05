@@ -6,8 +6,28 @@
 	<dict>
 		<key>test.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>3C89DD8B23933EB600C9A693</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3C89DDA423933EBD00C9A693</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3C89DDAF23933EBD00C9A693</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

@@ -7,15 +7,45 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
+    
+    @State var selectedView = 0
+    
     var body: some View {
-        Text("Hello World")
+        TabView(selection: $selectedView) {
+            NavigationView{
+                UploadImage()
+                .navigationBarTitle(Text("MAIN"), displayMode: .inline)
+                .navigationBarItems(trailing: Image(systemName: "heart"))
+            }
+                .tabItem {
+                    Image(systemName: "list.dash")
+            }.tag(0)
+            NavigationView{
+                Home()
+                .navigationBarTitle(Text("MAIN"), displayMode: .inline)
+                .navigationBarItems(trailing: Image(systemName: "heart"))
+            }
+                .tabItem {
+                    Image(systemName: "tray.full")
+            }.tag(1)
+            NavigationView{
+                nanana()
+                .navigationBarTitle(Text("DEV NOTE"), displayMode: .inline)
+                .navigationBarItems(trailing: Image(systemName: "heart"))
+            }
+                .tabItem {
+                    Image(systemName: "heart")
+            }.tag(2)
+        }.edgesIgnoringSafeArea(.top)
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().previewLayout(.fixed(width:375, height: 1000))
     }
 }
