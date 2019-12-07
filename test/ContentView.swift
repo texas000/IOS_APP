@@ -16,8 +16,8 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedView) {
             NavigationView{
-                UploadImage()
-                .navigationBarTitle(Text("MAIN"), displayMode: .inline)
+                LoadImageFirebase()
+                .navigationBarTitle(Text("FIRST_LIST"), displayMode: .inline)
                 .navigationBarItems(trailing: Image(systemName: "heart"))
             }
                 .tabItem {
@@ -25,7 +25,7 @@ struct ContentView: View {
             }.tag(0)
             NavigationView{
                 Home()
-                .navigationBarTitle(Text("MAIN"), displayMode: .inline)
+                .navigationBarTitle(Text("SECOND_STORED"), displayMode: .inline)
                 .navigationBarItems(trailing: Image(systemName: "heart"))
             }
                 .tabItem {
@@ -37,7 +37,7 @@ struct ContentView: View {
                 .navigationBarItems(trailing: Image(systemName: "heart"))
             }
                 .tabItem {
-                    Image(systemName: "heart")
+                    Image(systemName: "doc.text")
             }.tag(2)
         }.edgesIgnoringSafeArea(.top)
         

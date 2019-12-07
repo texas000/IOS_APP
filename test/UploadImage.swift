@@ -12,7 +12,12 @@ import SDWebImageSwiftUI
 
 struct UploadImage: View {
     @State var shown=false
+    @State var imageUrl=""
+
     var body: some View {
+        
+        //code here
+
         Button(action: {
             self.shown.toggle()
                 
@@ -24,6 +29,11 @@ struct UploadImage: View {
     }
 }
 
+
+//Download Image
+
+
+//Upload image
 struct UploadImage_Previews: PreviewProvider {
     static var previews: some View {
         UploadImage()
