@@ -16,29 +16,45 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedView) {
             NavigationView{
-                LoadImageFirebase()
-                .navigationBarTitle(Text("FIRST_LIST"), displayMode: .inline)
+                Explore_view()
+                .navigationBarTitle(Text("EXPLORE"), displayMode: .inline)
                 .navigationBarItems(trailing: Image(systemName: "heart"))
             }
                 .tabItem {
                     Image(systemName: "list.dash")
             }.tag(0)
             NavigationView{
-                Home()
-                .navigationBarTitle(Text("SECOND_STORED"), displayMode: .inline)
+                Saved_view()
+                .navigationBarTitle(Text("SAVED"), displayMode: .inline)
                 .navigationBarItems(trailing: Image(systemName: "heart"))
             }
                 .tabItem {
                     Image(systemName: "tray.full")
             }.tag(1)
             NavigationView{
-                nanana()
-                .navigationBarTitle(Text("DEV NOTE"), displayMode: .inline)
+                Home()
+                .navigationBarTitle(Text("MESSAGES"), displayMode: .inline)
                 .navigationBarItems(trailing: Image(systemName: "heart"))
             }
                 .tabItem {
-                    Image(systemName: "doc.text")
+                    Image(systemName: "message.circle.fill")
             }.tag(2)
+            NavigationView{
+                TEST()
+                .navigationBarTitle(Text("PAYMENT"), displayMode: .inline)
+                .navigationBarItems(trailing: Image(systemName: "heart"))
+            }
+                .tabItem {
+                    Image(systemName: "dollarsign.circle")
+            }.tag(3)
+            NavigationView{
+                nanana()
+                .navigationBarTitle(Text("ACCOUNT"), displayMode: .inline)
+                .navigationBarItems(trailing: Image(systemName: "heart"))
+            }
+                .tabItem {
+                    Image(systemName: "person")
+            }.tag(4)
         }.edgesIgnoringSafeArea(.top)
         
     }
