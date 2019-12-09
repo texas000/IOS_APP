@@ -17,48 +17,38 @@ struct Explore_view: View {
     @State var alert = false
     @State var name = ""
     @State var show = false
+    @ObservedObject var RoomData=letMeSee()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
+            //YOU CAN CLICK THE MAP
             VStack {
                 NavigationLink(destination: MapView(manager: $manager, alert: $alert)){
                 MapView(manager: $manager, alert: $alert)
                     .edgesIgnoringSafeArea(.top)
                     .frame(height: 250)
+                }
             }
-                
             Text("Find More").fontWeight(.heavy).font(.largeTitle).padding(.top,15)
-                
-            VStack(alignment: .leading){
+            //HEADER1
+            
+            ForEach(RoomData.data) {i in
+                VStack(alignment: .leading){
                     Button(action: {
                         self.show.toggle()
                     }) {
-                        Image("example-room").resizable().aspectRatio(contentMode: .fit)
+                        Image(i.pic).resizable().aspectRatio(contentMode: .fit)
                         .overlay(
-                            Text("Mac OS Catalina")
+                            Text("$"+i.price)
                             .foregroundColor(.gray)
-                            .font(.largeTitle)
-                        ,alignment: .bottomTrailing)
+                                .font(.largeTitle)
+                            ,alignment: .bottomTrailing)
                     }.buttonStyle(PlainButtonStyle())
-                    Text("Hello world").fontWeight(.heavy)
-                    
+                    Text(i.type).fontWeight(.heavy)
+
                     HStack(spacing: 5){
-                        Image(systemName: "heart")
-                        Text("Torrance, CA")
-                    }
-            }
-                
-            VStack(alignment: .leading){
-                Button(action: {
-                    
-                }) {
-                    Image("turtlerock").resizable().aspectRatio(contentMode: .fit)
-                }.buttonStyle(PlainButtonStyle())
-                Text("Hello world").fontWeight(.heavy)
-                
-                HStack(spacing: 5){
-                    Image(systemName: "heart")
-                    Text("Torrance, CA")
+                        Image(systemName: "location.circle")
+                        Text(i.location)
                     }
                 }
             }
@@ -114,8 +104,6 @@ struct Rounded : Shape {
         return Path(path.cgPath)
     }
 }
-
-    
     
 struct MapView : UIViewRepresentable {
     @Binding var manager : CLLocationManager
@@ -138,7 +126,7 @@ struct MapView : UIViewRepresentable {
 
             //Temporary fix: App crashes as it may execute before getting users current location
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 let locValue:CLLocationCoordinate2D = self.manager.location!.coordinate
                 print("CURRENT LOCATION = \(locValue.latitude) \(locValue.longitude)")
 
@@ -183,4 +171,11 @@ struct MapView : UIViewRepresentable {
         //}
     }
 }
+
+
+struct roomDataype: Identifiable{
+    var id: String
+    var msg: String
+}
+
 
