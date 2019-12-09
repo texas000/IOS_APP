@@ -123,6 +123,32 @@ struct MapView : UIViewRepresentable {
     let map = MKMapView()
     
     func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
+        
+        map.showsUserLocation = true
+
+        // Ask for Authorisation from the User.
+        self.manager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.manager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+             self.manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+             self.manager.startUpdatingLocation()
+
+            //Temporary fix: App crashes as it may execute before getting users current location
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                let locValue:CLLocationCoordinate2D = self.manager.location!.coordinate
+                print("CURRENT LOCATION = \(locValue.latitude) \(locValue.longitude)")
+
+                let coordinate = CLLocationCoordinate2D(
+                    latitude: locValue.latitude, longitude: locValue.longitude)
+                let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+                let region = MKCoordinateRegion(center: coordinate, span: span)
+                uiView.setRegion(region, animated: true)
+            })
+        }
     }
     
     func makeCoordinator() -> MapView.Coordinator{
@@ -134,8 +160,9 @@ struct MapView : UIViewRepresentable {
         manager.startUpdatingLocation()
         map.showsUserLocation = true
         manager.requestWhenInUseAuthorization()
-        map.centerCoordinate = CLLocationCoordinate2D(latitude: map.centerCoordinate.latitude, longitude: map.centerCoordinate.longitude)
-        map.setRegion(MKCoordinateRegion(center: map.centerCoordinate, span: map.region.span), animated: true)
+        
+        //map.centerCoordinate = CLLocationCoordinate2D(latitude: map.centerCoordinate.latitude, longitude: map.centerCoordinate.longitude)
+        //map.setRegion(MKCoordinateRegion(center: map.centerCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: true)
         return map
     }
     
