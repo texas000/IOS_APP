@@ -59,7 +59,7 @@ class letMeSee : ObservableObject{
             }
             for i in snap!.documentChanges{
                 if i.type == .added{
-                    let roomData = roomDataType(id: i.document.documentID, pic: i.document.get("pic") as! String, price: i.document.get("price") as! String, location: i.document.get("location") as! String, type: i.document.get("type") as! String)
+                    let roomData = roomDataType(id: i.document.documentID, pic: i.document.get("pic") as! String, price: i.document.get("price") as! String, location: i.document.get("location") as! String, type: i.document.get("type") as! String, prof: i.document.get("prof") as! String)
                     self.data.append(roomData)
                 }
             }
@@ -73,4 +73,5 @@ struct roomDataType: Identifiable{
     var price: String
     var location: String
     var type: String
+    var prof: String
 }

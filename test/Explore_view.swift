@@ -30,8 +30,8 @@ struct Explore_view: View {
                 }
             }
             Text("Find More").fontWeight(.heavy).font(.largeTitle).padding(.top,15)
-            //HEADER1
             
+            //HEADER1
             ForEach(RoomData.data) {i in
                 VStack(alignment: .leading){
                     Button(action: {
@@ -40,16 +40,34 @@ struct Explore_view: View {
                         Image(i.pic).resizable().aspectRatio(contentMode: .fit)
                         .overlay(
                             Text("$"+i.price)
-                            .foregroundColor(.gray)
-                                .font(.largeTitle)
+                            .foregroundColor(.white)
+                                .font(.caption)
+                                .background(Color.black)
+                                .opacity(0.3)
                             ,alignment: .bottomTrailing)
                     }.buttonStyle(PlainButtonStyle())
-                    Text(i.type).fontWeight(.heavy)
-
+                    
                     HStack(spacing: 5){
-                        Image(systemName: "location.circle")
-                        Text(i.location)
-                    }
+                        VStack(alignment: .leading){
+                            Text(i.type).fontWeight(.heavy)
+                            HStack{
+                                Image(systemName: "location.circle")
+                                Text(i.location)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                    
+                        Image(i.prof)
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .scaledToFit()
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+                            .aspectRatio(contentMode: .fit)
+                        Text(i.id)
+                    }.padding()
                 }
             }
         }.sheet(isPresented: $show) {
@@ -65,6 +83,8 @@ struct Explore_view_Previews: PreviewProvider {
 }
 
 struct Detail : View {
+    
+    @ObservedObject var RoomData=letMeSee()
     
     var body: some View{
         VStack{
